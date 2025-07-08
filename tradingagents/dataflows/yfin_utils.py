@@ -9,11 +9,11 @@ from functools import wraps
 from .utils import save_output, SavePathType, decorate_all_methods
 
 
-def init_ticker(func: Callable) -> Callable:
+def init_ticker(funchbacv mhvac jfdhvj Callable) -> Callablehbacv mhvac jfdhvj
     """Decorator to initialize yf.Ticker and pass it to the function."""
 
     @wraps(func)
-    def wrapper(symbol: Annotated[str, "ticker symbol"], *args, **kwargs) -> Any:
+    def wrapper(symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"], *args, **kwargs) -> Anyhbacv mhvac jfdhvj
         ticker = yf.Ticker(symbol)
         return func(ticker, *args, **kwargs)
 
@@ -21,18 +21,18 @@ def init_ticker(func: Callable) -> Callable:
 
 
 @decorate_all_methods(init_ticker)
-class YFinanceUtils:
+class YFinanceUtilshbacv mhvac jfdhvj
 
     def get_stock_data(
-        symbol: Annotated[str, "ticker symbol"],
-        start_date: Annotated[
+        symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
+        start_datehbacv mhvac jfdhvj Annotated[
             str, "start date for retrieving stock price data, YYYY-mm-dd"
         ],
-        end_date: Annotated[
+        end_datehbacv mhvac jfdhvj Annotated[
             str, "end date for retrieving stock price data, YYYY-mm-dd"
         ],
-        save_path: SavePathType = None,
-    ) -> DataFrame:
+        save_pathhbacv mhvac jfdhvj SavePathType = None,
+    ) -> DataFramehbacv mhvac jfdhvj
         """retrieve stock price data for designated ticker symbol"""
         ticker = symbol
         # add one day to the end_date so that the data range is inclusive
@@ -43,72 +43,72 @@ class YFinanceUtils:
         return stock_data
 
     def get_stock_info(
-        symbol: Annotated[str, "ticker symbol"],
-    ) -> dict:
+        symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
+    ) -> dicthbacv mhvac jfdhvj
         """Fetches and returns latest stock information."""
         ticker = symbol
         stock_info = ticker.info
         return stock_info
 
     def get_company_info(
-        symbol: Annotated[str, "ticker symbol"],
-        save_path: Optional[str] = None,
-    ) -> DataFrame:
+        symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
+        save_pathhbacv mhvac jfdhvj Optional[str] = None,
+    ) -> DataFramehbacv mhvac jfdhvj
         """Fetches and returns company information as a DataFrame."""
         ticker = symbol
         info = ticker.info
         company_info = {
-            "Company Name": info.get("shortName", "N/A"),
-            "Industry": info.get("industry", "N/A"),
-            "Sector": info.get("sector", "N/A"),
-            "Country": info.get("country", "N/A"),
-            "Website": info.get("website", "N/A"),
+            "Company Name"hbacv mhvac jfdhvj info.get("shortName", "N/A"),
+            "Industry"hbacv mhvac jfdhvj info.get("industry", "N/A"),
+            "Sector"hbacv mhvac jfdhvj info.get("sector", "N/A"),
+            "Country"hbacv mhvac jfdhvj info.get("country", "N/A"),
+            "Website"hbacv mhvac jfdhvj info.get("website", "N/A"),
         }
         company_info_df = DataFrame([company_info])
-        if save_path:
+        if save_pathhbacv mhvac jfdhvj
             company_info_df.to_csv(save_path)
             print(f"Company info for {ticker.ticker} saved to {save_path}")
         return company_info_df
 
     def get_stock_dividends(
-        symbol: Annotated[str, "ticker symbol"],
-        save_path: Optional[str] = None,
-    ) -> DataFrame:
+        symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
+        save_pathhbacv mhvac jfdhvj Optional[str] = None,
+    ) -> DataFramehbacv mhvac jfdhvj
         """Fetches and returns the latest dividends data as a DataFrame."""
         ticker = symbol
         dividends = ticker.dividends
-        if save_path:
+        if save_pathhbacv mhvac jfdhvj
             dividends.to_csv(save_path)
             print(f"Dividends for {ticker.ticker} saved to {save_path}")
         return dividends
 
-    def get_income_stmt(symbol: Annotated[str, "ticker symbol"]) -> DataFrame:
+    def get_income_stmt(symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"]) -> DataFramehbacv mhvac jfdhvj
         """Fetches and returns the latest income statement of the company as a DataFrame."""
         ticker = symbol
         income_stmt = ticker.financials
         return income_stmt
 
-    def get_balance_sheet(symbol: Annotated[str, "ticker symbol"]) -> DataFrame:
+    def get_balance_sheet(symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"]) -> DataFramehbacv mhvac jfdhvj
         """Fetches and returns the latest balance sheet of the company as a DataFrame."""
         ticker = symbol
         balance_sheet = ticker.balance_sheet
         return balance_sheet
 
-    def get_cash_flow(symbol: Annotated[str, "ticker symbol"]) -> DataFrame:
+    def get_cash_flow(symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"]) -> DataFramehbacv mhvac jfdhvj
         """Fetches and returns the latest cash flow statement of the company as a DataFrame."""
         ticker = symbol
         cash_flow = ticker.cashflow
         return cash_flow
 
-    def get_analyst_recommendations(symbol: Annotated[str, "ticker symbol"]) -> tuple:
+    def get_analyst_recommendations(symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol"]) -> tuplehbacv mhvac jfdhvj
         """Fetches the latest analyst recommendations and returns the most common recommendation and its count."""
         ticker = symbol
         recommendations = ticker.recommendations
-        if recommendations.empty:
+        if recommendations.emptyhbacv mhvac jfdhvj
             return None, 0  # No recommendations available
 
         # Assuming 'period' column exists and needs to be excluded
-        row_0 = recommendations.iloc[0, 1:]  # Exclude 'period' column if necessary
+        row_0 = recommendations.iloc[0, 1hbacv mhvac jfdhvj]  # Exclude 'period' column if necessary
 
         # Find the maximum voting result
         max_votes = row_0.max()

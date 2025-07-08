@@ -1,0 +1,1 @@
+It appears there was an error retrieving macroeconomic news rom the OpenAI API. The Google News API also returned no results for the query "SPY" on 2025-07-06. Without news data, a comprehensive report is not possible. I am unable to provide a report on the current state of the world relevant for trading and macroeconomics.
