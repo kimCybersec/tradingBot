@@ -1,86 +1,86 @@
 <p align="center">
-  <img src="assets/TauricResearch.png" style="widthhbacv mhvac jfdhvj 60%; heighthbacv mhvac jfdhvj auto;">
+  <img src="assets/TauricResearch.png" style="width: 60%; height: auto;">
 </p>
 
-<div align="center" style="line-heighthbacv mhvac jfdhvj 1;">
-  <a href="httpshbacv mhvac jfdhvj//arxiv.org/abs/2412.20138" target="_blank"><img alt="arXiv" src="httpshbacv mhvac jfdhvj//img.shields.io/badge/arXiv-2412.20138-B31B1B?logo=arxiv"/></a>
-  <a href="httpshbacv mhvac jfdhvj//discord.com/invite/hk9PGKShPK" target="_blank"><img alt="Discord" src="httpshbacv mhvac jfdhvj//img.shields.io/badge/Discord-TradingResearch-7289da?logo=discord&logoColor=white&color=7289da"/></a>
-  <a href="./assets/wechat.png" target="_blank"><img alt="WeChat" src="httpshbacv mhvac jfdhvj//img.shields.io/badge/WeChat-TauricResearch-brightgreen?logo=wechat&logoColor=white"/></a>
-  <a href="httpshbacv mhvac jfdhvj//x.com/TauricResearch" target="_blank"><img alt="X Follow" src="httpshbacv mhvac jfdhvj//img.shields.io/badge/X-TauricResearch-white?logo=x&logoColor=white"/></a>
+<div align="center" style="line-height: 1;">
+  <a href="https://arxiv.org/abs/2412.20138" target="_blank"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2412.20138-B31B1B?logo=arxiv"/></a>
+  <a href="https://discord.com/invite/hk9PGKShPK" target="_blank"><img alt="Discord" src="https://img.shields.io/badge/Discord-TradingResearch-7289da?logo=discord&logoColor=white&color=7289da"/></a>
+  <a href="./assets/wechat.png" target="_blank"><img alt="WeChat" src="https://img.shields.io/badge/WeChat-TauricResearch-brightgreen?logo=wechat&logoColor=white"/></a>
+  <a href="https://x.com/TauricResearch" target="_blank"><img alt="X Follow" src="https://img.shields.io/badge/X-TauricResearch-white?logo=x&logoColor=white"/></a>
   <br>
-  <a href="httpshbacv mhvac jfdhvj//github.com/TauricResearch/" target="_blank"><img alt="Community" src="httpshbacv mhvac jfdhvj//img.shields.io/badge/Join_GitHub_Community-TauricResearch-14C290?logo=discourse"/></a>
+  <a href="https://github.com/TauricResearch/" target="_blank"><img alt="Community" src="https://img.shields.io/badge/Join_GitHub_Community-TauricResearch-14C290?logo=discourse"/></a>
 </div>
 
 <div align="center">
   <!-- Keep these links. Translations will automatically update with the README. -->
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=de">Deutsch</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=es">Español</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=fr">français</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=ja">日本語</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=ko">한국어</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=pt">Português</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=ru">Русский</a> | 
-  <a href="httpshbacv mhvac jfdhvj//www.readme-i18n.com/TauricResearch/TradingAgents?lang=zh">中文</a>
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=de">Deutsch</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=es">Español</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=fr">français</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=ja">日本語</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=ko">한국어</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=pt">Português</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=ru">Русский</a> | 
+  <a href="https://www.readme-i18n.com/TauricResearch/TradingAgents?lang=zh">中文</a>
 </div>
 
 ---
 
-# TradingAgentshbacv mhvac jfdhvj Multi-Agents LLM Financial Trading Framework 
+# TradingAgents: Multi-Agents LLM Financial Trading Framework 
 
 > 🎉 **TradingAgents** officially released! We have received numerous inquiries about the work, and we would like to express our thanks for the enthusiasm in our community.
 >
 > So we decided to fully open-source the framework. Looking forward to building impactful projects with you!
 
 <div align="center">
-<a href="httpshbacv mhvac jfdhvj//www.star-history.com/#TauricResearch/TradingAgents&Date">
+<a href="https://www.star-history.com/#TauricResearch/TradingAgents&Date">
  <picture>
-   <source media="(prefers-color-schemehbacv mhvac jfdhvj dark)" srcset="httpshbacv mhvac jfdhvj//api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date&theme=dark" />
-   <source media="(prefers-color-schemehbacv mhvac jfdhvj light)" srcset="httpshbacv mhvac jfdhvj//api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" />
-   <img alt="TradingAgents Star History" src="httpshbacv mhvac jfdhvj//api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" style="widthhbacv mhvac jfdhvj 80%; heighthbacv mhvac jfdhvj auto;" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" />
+   <img alt="TradingAgents Star History" src="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" style="width: 80%; height: auto;" />
  </picture>
 </a>
 </div>
 
 <div align="center">
 
-🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🎬 [Demo](httpshbacv mhvac jfdhvj//www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
+🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
 
 </div>
 
 ## TradingAgents Framework
 
-TradingAgents is a multi-agent trading framework that mirrors the dynamics of real-world trading firms. By deploying specialized LLM-powered agentshbacv mhvac jfdhvj from fundamental analysts, sentiment experts, and technical analysts, to trader, risk management team, the platform collaboratively evaluates market conditions and informs trading decisions. Moreover, these agents engage in dynamic discussions to pinpoint the optimal strategy.
+TradingAgents is a multi-agent trading framework that mirrors the dynamics of real-world trading firms. By deploying specialized LLM-powered agents: from fundamental analysts, sentiment experts, and technical analysts, to trader, risk management team, the platform collaboratively evaluates market conditions and informs trading decisions. Moreover, these agents engage in dynamic discussions to pinpoint the optimal strategy.
 
 <p align="center">
-  <img src="assets/schema.png" style="widthhbacv mhvac jfdhvj 100%; heighthbacv mhvac jfdhvj auto;">
+  <img src="assets/schema.png" style="width: 100%; height: auto;">
 </p>
 
-> TradingAgents framework is designed for research purposes. Trading performance may vary based on many factors, including the chosen backbone language models, model temperature, trading periods, the quality of data, and other non-deterministic factors. [It is not intended as financial, investment, or trading advice.](httpshbacv mhvac jfdhvj//tauric.ai/disclaimer/)
+> TradingAgents framework is designed for research purposes. Trading performance may vary based on many factors, including the chosen backbone language models, model temperature, trading periods, the quality of data, and other non-deterministic factors. [It is not intended as financial, investment, or trading advice.](https://tauric.ai/disclaimer/)
 
 Our framework decomposes complex trading tasks into specialized roles. This ensures the system achieves a robust, scalable approach to market analysis and decision-making.
 
 ### Analyst Team
-- Fundamentals Analysthbacv mhvac jfdhvj Evaluates company financials and performance metrics, identifying intrinsic values and potential red flags.
-- Sentiment Analysthbacv mhvac jfdhvj Analyzes social media and public sentiment using sentiment scoring algorithms to gauge short-term market mood.
-- News Analysthbacv mhvac jfdhvj Monitors global news and macroeconomic indicators, interpreting the impact of events on market conditions.
-- Technical Analysthbacv mhvac jfdhvj Utilizes technical indicators (like MACD and RSI) to detect trading patterns and forecast price movements.
+- Fundamentals Analyst: Evaluates company financials and performance metrics, identifying intrinsic values and potential red flags.
+- Sentiment Analyst: Analyzes social media and public sentiment using sentiment scoring algorithms to gauge short-term market mood.
+- News Analyst: Monitors global news and macroeconomic indicators, interpreting the impact of events on market conditions.
+- Technical Analyst: Utilizes technical indicators (like MACD and RSI) to detect trading patterns and forecast price movements.
 
 <p align="center">
-  <img src="assets/analyst.png" width="100%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/analyst.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 ### Researcher Team
 - Comprises both bullish and bearish researchers who critically assess the insights provided by the Analyst Team. Through structured debates, they balance potential gains against inherent risks.
 
 <p align="center">
-  <img src="assets/researcher.png" width="70%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/researcher.png" width="70%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 ### Trader Agent
 - Composes reports from the analysts and researchers to make informed trading decisions. It determines the timing and magnitude of trades based on comprehensive market insights.
 
 <p align="center">
-  <img src="assets/trader.png" width="70%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/trader.png" width="70%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 ### Risk Management and Portfolio Manager
@@ -88,26 +88,26 @@ Our framework decomposes complex trading tasks into specialized roles. This ensu
 - The Portfolio Manager approves/rejects the transaction proposal. If approved, the order will be sent to the simulated exchange and executed.
 
 <p align="center">
-  <img src="assets/risk.png" width="70%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/risk.png" width="70%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 ## Installation and CLI
 
 ### Installation
 
-Clone TradingAgentshbacv mhvac jfdhvj
+Clone TradingAgents:
 ```bash
-git clone httpshbacv mhvac jfdhvj//github.com/TauricResearch/TradingAgents.git
+git clone https://github.com/TauricResearch/TradingAgents.git
 cd TradingAgents
 ```
 
-Create a virtual environment in any of your favorite environment managershbacv mhvac jfdhvj
+Create a virtual environment in any of your favorite environment managers:
 ```bash
 conda create -n tradingagents python=3.13
 conda activate tradingagents
 ```
 
-Install dependencieshbacv mhvac jfdhvj
+Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -126,24 +126,24 @@ export OPENAI_API_KEY=$YOUR_OPENAI_API_KEY
 
 ### CLI Usage
 
-You can also try out the CLI directly by runninghbacv mhvac jfdhvj
+You can also try out the CLI directly by running:
 ```bash
 python -m cli.main
 ```
 You will see a screen where you can select your desired tickers, date, LLMs, research depth, etc.
 
 <p align="center">
-  <img src="assets/cli/cli_init.png" width="100%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/cli/cli_init.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 An interface will appear showing results as they load, letting you track the agent's progress as it runs.
 
 <p align="center">
-  <img src="assets/cli/cli_news.png" width="100%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/cli/cli_news.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 <p align="center">
-  <img src="assets/cli/cli_transaction.png" width="100%" style="displayhbacv mhvac jfdhvj inline-block; marginhbacv mhvac jfdhvj 0 2%;">
+  <img src="assets/cli/cli_transaction.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
 
 ## TradingAgents Package
@@ -154,7 +154,7 @@ We built TradingAgents with LangGraph to ensure flexibility and modularity. We u
 
 ### Python Usage
 
-To use TradingAgents inside your code, you can import the `tradingagents` module and initialize a `TradingAgentsGraph()` object. The `.propagate()` function will return a decision. You can run `main.py`, here's also a quick examplehbacv mhvac jfdhvj
+To use TradingAgents inside your code, you can import the `tradingagents` module and initialize a `TradingAgentsGraph()` object. The `.propagate()` function will return a decision. You can run `main.py`, here's also a quick example:
 
 ```python
 from tradingagents.graph.trading_graph import TradingAgentsGraph
@@ -194,20 +194,20 @@ You can view the full list of configurations in `tradingagents/default_config.py
 
 ## Contributing
 
-We welcome contributions from the community! Whether it's fixing a bug, improving documentation, or suggesting a new feature, your input helps make this project better. If you are interested in this line of research, please consider joining our open-source financial AI research community [Tauric Research](httpshbacv mhvac jfdhvj//tauric.ai/).
+We welcome contributions from the community! Whether it's fixing a bug, improving documentation, or suggesting a new feature, your input helps make this project better. If you are interested in this line of research, please consider joining our open-source financial AI research community [Tauric Research](https://tauric.ai/).
 
 ## Citation
 
-Please reference our work if you find *TradingAgents* provides you with some help hbacv mhvac jfdhvj)
+Please reference our work if you find *TradingAgents* provides you with some help :)
 
 ```
 @misc{xiao2025tradingagentsmultiagentsllmfinancial,
-      title={TradingAgentshbacv mhvac jfdhvj Multi-Agents LLM Financial Trading Framework}, 
+      title={TradingAgents: Multi-Agents LLM Financial Trading Framework}, 
       author={Yijia Xiao and Edward Sun and Di Luo and Wei Wang},
       year={2025},
       eprint={2412.20138},
       archivePrefix={arXiv},
       primaryClass={q-fin.TR},
-      url={httpshbacv mhvac jfdhvj//arxiv.org/abs/2412.20138}, 
+      url={https://arxiv.org/abs/2412.20138}, 
 }
 ```

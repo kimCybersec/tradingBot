@@ -12,22 +12,22 @@ from tradingagents.agents.utils.agent_utils import Toolkit
 from .conditional_logic import ConditionalLogic
 
 
-class GraphSetuphbacv mhvac jfdhvj
+class GraphSetup:
     """Handles the setup and configuration of the agent graph."""
 
     def __init__(
         self,
-        quick_thinking_llmhbacv mhvac jfdhvj ChatOpenAI,
-        deep_thinking_llmhbacv mhvac jfdhvj ChatOpenAI,
-        toolkithbacv mhvac jfdhvj Toolkit,
-        tool_nodeshbacv mhvac jfdhvj Dict[str, ToolNode],
+        quick_thinking_llm: ChatOpenAI,
+        deep_thinking_llm: ChatOpenAI,
+        toolkit: Toolkit,
+        tool_nodes: Dict[str, ToolNode],
         bull_memory,
         bear_memory,
         trader_memory,
         invest_judge_memory,
         risk_manager_memory,
-        conditional_logichbacv mhvac jfdhvj ConditionalLogic,
-    )hbacv mhvac jfdhvj
+        conditional_logic: ConditionalLogic,
+    ):
         """Initialize with required components."""
         self.quick_thinking_llm = quick_thinking_llm
         self.deep_thinking_llm = deep_thinking_llm
@@ -42,46 +42,46 @@ class GraphSetuphbacv mhvac jfdhvj
 
     def setup_graph(
         self, selected_analysts=["market", "social", "news", "fundamentals"]
-    )hbacv mhvac jfdhvj
+    ):
         """Set up and compile the agent workflow graph.
 
-        Argshbacv mhvac jfdhvj
-            selected_analysts (list)hbacv mhvac jfdhvj List of analyst types to include. Options arehbacv mhvac jfdhvj
-                - "market"hbacv mhvac jfdhvj Market analyst
-                - "social"hbacv mhvac jfdhvj Social media analyst
-                - "news"hbacv mhvac jfdhvj News analyst
-                - "fundamentals"hbacv mhvac jfdhvj Fundamentals analyst
+        Args:
+            selected_analysts (list): List of analyst types to include. Options are:
+                - "market": Market analyst
+                - "social": Social media analyst
+                - "news": News analyst
+                - "fundamentals": Fundamentals analyst
         """
-        if len(selected_analysts) == 0hbacv mhvac jfdhvj
-            raise ValueError("Trading Agents Graph Setup Errorhbacv mhvac jfdhvj no analysts selected!")
+        if len(selected_analysts) == 0:
+            raise ValueError("Trading Agents Graph Setup Error: no analysts selected!")
 
         # Create analyst nodes
         analyst_nodes = {}
         delete_nodes = {}
         tool_nodes = {}
 
-        if "market" in selected_analystshbacv mhvac jfdhvj
+        if "market" in selected_analysts:
             analyst_nodes["market"] = create_market_analyst(
                 self.quick_thinking_llm, self.toolkit
             )
             delete_nodes["market"] = create_msg_delete()
             tool_nodes["market"] = self.tool_nodes["market"]
 
-        if "social" in selected_analystshbacv mhvac jfdhvj
+        if "social" in selected_analysts:
             analyst_nodes["social"] = create_social_media_analyst(
                 self.quick_thinking_llm, self.toolkit
             )
             delete_nodes["social"] = create_msg_delete()
             tool_nodes["social"] = self.tool_nodes["social"]
 
-        if "news" in selected_analystshbacv mhvac jfdhvj
+        if "news" in selected_analysts:
             analyst_nodes["news"] = create_news_analyst(
                 self.quick_thinking_llm, self.toolkit
             )
             delete_nodes["news"] = create_msg_delete()
             tool_nodes["news"] = self.tool_nodes["news"]
 
-        if "fundamentals" in selected_analystshbacv mhvac jfdhvj
+        if "fundamentals" in selected_analysts:
             analyst_nodes["fundamentals"] = create_fundamentals_analyst(
                 self.quick_thinking_llm, self.toolkit
             )
@@ -112,7 +112,7 @@ class GraphSetuphbacv mhvac jfdhvj
         workflow = StateGraph(AgentState)
 
         # Add analyst nodes to the graph
-        for analyst_type, node in analyst_nodes.items()hbacv mhvac jfdhvj
+        for analyst_type, node in analyst_nodes.items():
             workflow.add_node(f"{analyst_type.capitalize()} Analyst", node)
             workflow.add_node(
                 f"Msg Clear {analyst_type.capitalize()}", delete_nodes[analyst_type]
@@ -135,7 +135,7 @@ class GraphSetuphbacv mhvac jfdhvj
         workflow.add_edge(START, f"{first_analyst.capitalize()} Analyst")
 
         # Connect analysts in sequence
-        for i, analyst_type in enumerate(selected_analysts)hbacv mhvac jfdhvj
+        for i, analyst_type in enumerate(selected_analysts):
             current_analyst = f"{analyst_type.capitalize()} Analyst"
             current_tools = f"tools_{analyst_type}"
             current_clear = f"Msg Clear {analyst_type.capitalize()}"
@@ -149,10 +149,10 @@ class GraphSetuphbacv mhvac jfdhvj
             workflow.add_edge(current_tools, current_analyst)
 
             # Connect to next analyst or to Bull Researcher if this is the last analyst
-            if i < len(selected_analysts) - 1hbacv mhvac jfdhvj
+            if i < len(selected_analysts) - 1:
                 next_analyst = f"{selected_analysts[i+1].capitalize()} Analyst"
                 workflow.add_edge(current_clear, next_analyst)
-            elsehbacv mhvac jfdhvj
+            else:
                 workflow.add_edge(current_clear, "Bull Researcher")
 
         # Add remaining edges
@@ -160,16 +160,16 @@ class GraphSetuphbacv mhvac jfdhvj
             "Bull Researcher",
             self.conditional_logic.should_continue_debate,
             {
-                "Bear Researcher"hbacv mhvac jfdhvj "Bear Researcher",
-                "Research Manager"hbacv mhvac jfdhvj "Research Manager",
+                "Bear Researcher": "Bear Researcher",
+                "Research Manager": "Research Manager",
             },
         )
         workflow.add_conditional_edges(
             "Bear Researcher",
             self.conditional_logic.should_continue_debate,
             {
-                "Bull Researcher"hbacv mhvac jfdhvj "Bull Researcher",
-                "Research Manager"hbacv mhvac jfdhvj "Research Manager",
+                "Bull Researcher": "Bull Researcher",
+                "Research Manager": "Research Manager",
             },
         )
         workflow.add_edge("Research Manager", "Trader")
@@ -178,24 +178,24 @@ class GraphSetuphbacv mhvac jfdhvj
             "Risky Analyst",
             self.conditional_logic.should_continue_risk_analysis,
             {
-                "Safe Analyst"hbacv mhvac jfdhvj "Safe Analyst",
-                "Risk Judge"hbacv mhvac jfdhvj "Risk Judge",
+                "Safe Analyst": "Safe Analyst",
+                "Risk Judge": "Risk Judge",
             },
         )
         workflow.add_conditional_edges(
             "Safe Analyst",
             self.conditional_logic.should_continue_risk_analysis,
             {
-                "Neutral Analyst"hbacv mhvac jfdhvj "Neutral Analyst",
-                "Risk Judge"hbacv mhvac jfdhvj "Risk Judge",
+                "Neutral Analyst": "Neutral Analyst",
+                "Risk Judge": "Risk Judge",
             },
         )
         workflow.add_conditional_edges(
             "Neutral Analyst",
             self.conditional_logic.should_continue_risk_analysis,
             {
-                "Risky Analyst"hbacv mhvac jfdhvj "Risky Analyst",
-                "Risk Judge"hbacv mhvac jfdhvj "Risk Judge",
+                "Risky Analyst": "Risky Analyst",
+                "Risk Judge": "Risk Judge",
             },
         )
 

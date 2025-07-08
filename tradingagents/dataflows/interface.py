@@ -17,22 +17,22 @@ from .config import get_config, set_config, DATA_DIR
 
 
 def get_finnhub_news(
-    tickerhbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[
         str,
         "Search query of a company's, e.g. 'AAPL, TSM, etc.",
     ],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "Current date in yyyy-mm-dd format"],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-)hbacv mhvac jfdhvj
+    curr_date: Annotated[str, "Current date in yyyy-mm-dd format"],
+    look_back_days: Annotated[int, "how many days to look back"],
+):
     """
     Retrieve news about a company within a time frame
 
     Args
-        ticker (str)hbacv mhvac jfdhvj ticker for the company you are interested in
-        start_date (str)hbacv mhvac jfdhvj Start date in yyyy-mm-dd format
-        end_date (str)hbacv mhvac jfdhvj End date in yyyy-mm-dd format
+        ticker (str): ticker for the company you are interested in
+        start_date (str): Start date in yyyy-mm-dd format
+        end_date (str): End date in yyyy-mm-dd format
     Returns
-        strhbacv mhvac jfdhvj dataframe containing the news of the company in the time frame
+        str: dataframe containing the news of the company in the time frame
 
     """
 
@@ -42,37 +42,37 @@ def get_finnhub_news(
 
     result = get_data_in_range(ticker, before, curr_date, "news_data", DATA_DIR)
 
-    if len(result) == 0hbacv mhvac jfdhvj
+    if len(result) == 0:
         return ""
 
     combined_result = ""
-    for day, data in result.items()hbacv mhvac jfdhvj
-        if len(data) == 0hbacv mhvac jfdhvj
+    for day, data in result.items():
+        if len(data) == 0:
             continue
-        for entry in datahbacv mhvac jfdhvj
+        for entry in data:
             current_news = (
                 "### " + entry["headline"] + f" ({day})" + "\n" + entry["summary"]
             )
             combined_result += current_news + "\n\n"
 
-    return f"## {ticker} News, from {before} to {curr_date}hbacv mhvac jfdhvj\n" + str(combined_result)
+    return f"## {ticker} News, from {before} to {curr_date}:\n" + str(combined_result)
 
 
 def get_finnhub_company_insider_sentiment(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol for the company"],
-    curr_datehbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[str, "ticker symbol for the company"],
+    curr_date: Annotated[
         str,
         "current date of you are trading at, yyyy-mm-dd",
     ],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "number of days to look back"],
-)hbacv mhvac jfdhvj
+    look_back_days: Annotated[int, "number of days to look back"],
+):
     """
     Retrieve insider sentiment about a company (retrieved from public SEC information) for the past 15 days
-    Argshbacv mhvac jfdhvj
-        ticker (str)hbacv mhvac jfdhvj ticker symbol of the company
-        curr_date (str)hbacv mhvac jfdhvj current date you are trading on, yyyy-mm-dd
-    Returnshbacv mhvac jfdhvj
-        strhbacv mhvac jfdhvj a report of the sentiment in the past 15 days starting at curr_date
+    Args:
+        ticker (str): ticker symbol of the company
+        curr_date (str): current date you are trading on, yyyy-mm-dd
+    Returns:
+        str: a report of the sentiment in the past 15 days starting at curr_date
     """
 
     date_obj = datetime.strptime(curr_date, "%Y-%m-%d")
@@ -81,39 +81,39 @@ def get_finnhub_company_insider_sentiment(
 
     data = get_data_in_range(ticker, before, curr_date, "insider_senti", DATA_DIR)
 
-    if len(data) == 0hbacv mhvac jfdhvj
+    if len(data) == 0:
         return ""
 
     result_str = ""
     seen_dicts = []
-    for date, senti_list in data.items()hbacv mhvac jfdhvj
-        for entry in senti_listhbacv mhvac jfdhvj
-            if entry not in seen_dictshbacv mhvac jfdhvj
-                result_str += f"### {entry['year']}-{entry['month']}hbacv mhvac jfdhvj\nChangehbacv mhvac jfdhvj {entry['change']}\nMonthly Share Purchase Ratiohbacv mhvac jfdhvj {entry['mspr']}\n\n"
+    for date, senti_list in data.items():
+        for entry in senti_list:
+            if entry not in seen_dicts:
+                result_str += f"### {entry['year']}-{entry['month']}:\nChange: {entry['change']}\nMonthly Share Purchase Ratio: {entry['mspr']}\n\n"
                 seen_dicts.append(entry)
 
     return (
-        f"## {ticker} Insider Sentiment Data for {before} to {curr_date}hbacv mhvac jfdhvj\n"
+        f"## {ticker} Insider Sentiment Data for {before} to {curr_date}:\n"
         + result_str
         + "The change field refers to the net buying/selling from all insiders' transactions. The mspr field refers to monthly share purchase ratio."
     )
 
 
 def get_finnhub_company_insider_transactions(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
-    curr_datehbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[str, "ticker symbol"],
+    curr_date: Annotated[
         str,
         "current date you are trading at, yyyy-mm-dd",
     ],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-)hbacv mhvac jfdhvj
+    look_back_days: Annotated[int, "how many days to look back"],
+):
     """
     Retrieve insider transcaction information about a company (retrieved from public SEC information) for the past 15 days
-    Argshbacv mhvac jfdhvj
-        ticker (str)hbacv mhvac jfdhvj ticker symbol of the company
-        curr_date (str)hbacv mhvac jfdhvj current date you are trading at, yyyy-mm-dd
-    Returnshbacv mhvac jfdhvj
-        strhbacv mhvac jfdhvj a report of the company's insider transaction/trading informtaion in the past 15 days
+    Args:
+        ticker (str): ticker symbol of the company
+        curr_date (str): current date you are trading at, yyyy-mm-dd
+    Returns:
+        str: a report of the company's insider transaction/trading informtaion in the past 15 days
     """
 
     date_obj = datetime.strptime(curr_date, "%Y-%m-%d")
@@ -122,33 +122,33 @@ def get_finnhub_company_insider_transactions(
 
     data = get_data_in_range(ticker, before, curr_date, "insider_trans", DATA_DIR)
 
-    if len(data) == 0hbacv mhvac jfdhvj
+    if len(data) == 0:
         return ""
 
     result_str = ""
 
     seen_dicts = []
-    for date, senti_list in data.items()hbacv mhvac jfdhvj
-        for entry in senti_listhbacv mhvac jfdhvj
-            if entry not in seen_dictshbacv mhvac jfdhvj
-                result_str += f"### Filing Datehbacv mhvac jfdhvj {entry['filingDate']}, {entry['name']}hbacv mhvac jfdhvj\nChangehbacv mhvac jfdhvj{entry['change']}\nShareshbacv mhvac jfdhvj {entry['share']}\nTransaction Pricehbacv mhvac jfdhvj {entry['transactionPrice']}\nTransaction Codehbacv mhvac jfdhvj {entry['transactionCode']}\n\n"
+    for date, senti_list in data.items():
+        for entry in senti_list:
+            if entry not in seen_dicts:
+                result_str += f"### Filing Date: {entry['filingDate']}, {entry['name']}:\nChange:{entry['change']}\nShares: {entry['share']}\nTransaction Price: {entry['transactionPrice']}\nTransaction Code: {entry['transactionCode']}\n\n"
                 seen_dicts.append(entry)
 
     return (
-        f"## {ticker} insider transactions from {before} to {curr_date}hbacv mhvac jfdhvj\n"
+        f"## {ticker} insider transactions from {before} to {curr_date}:\n"
         + result_str
         + "The change field reflects the variation in share count—here a negative number indicates a reduction in holdings—while share specifies the total number of shares involved. The transactionPrice denotes the per-share price at which the trade was executed, and transactionDate marks when the transaction occurred. The name field identifies the insider making the trade, and transactionCode (e.g., S for sale) clarifies the nature of the transaction. FilingDate records when the transaction was officially reported, and the unique id links to the specific SEC filing, as indicated by the source. Additionally, the symbol ties the transaction to a particular company, isDerivative flags whether the trade involves derivative securities, and currency notes the currency context of the transaction."
     )
 
 
 def get_simfin_balance_sheet(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
-    freqhbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[str, "ticker symbol"],
+    freq: Annotated[
         str,
-        "reporting frequency of the company's financial historyhbacv mhvac jfdhvj annual / quarterly",
+        "reporting frequency of the company's financial history: annual / quarterly",
     ],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "current date you are trading at, yyyy-mm-dd"],
-)hbacv mhvac jfdhvj
+    curr_date: Annotated[str, "current date you are trading at, yyyy-mm-dd"],
+):
     data_path = os.path.join(
         DATA_DIR,
         "fundamental_data",
@@ -171,7 +171,7 @@ def get_simfin_balance_sheet(
     filtered_df = df[(df["Ticker"] == ticker) & (df["Publish Date"] <= curr_date_dt)]
 
     # Check if there are any available reports; if not, return a notification
-    if filtered_df.emptyhbacv mhvac jfdhvj
+    if filtered_df.empty:
         print("No balance sheet available before the given current date.")
         return ""
 
@@ -182,20 +182,20 @@ def get_simfin_balance_sheet(
     latest_balance_sheet = latest_balance_sheet.drop("SimFinId")
 
     return (
-        f"## {freq} balance sheet for {ticker} released on {str(latest_balance_sheet['Publish Date'])[0hbacv mhvac jfdhvj10]}hbacv mhvac jfdhvj \n"
+        f"## {freq} balance sheet for {ticker} released on {str(latest_balance_sheet['Publish Date'])[0:10]}: \n"
         + str(latest_balance_sheet)
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a breakdown of assets, liabilities, and equity. Assets are grouped as current (liquid items like cash and receivables) and noncurrent (long-term investments and property). Liabilities are split between short-term obligations and long-term debts, while equity reflects shareholder funds such as paid-in capital and retained earnings. Together, these components ensure that total assets equal the sum of liabilities and equity."
     )
 
 
 def get_simfin_cashflow(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
-    freqhbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[str, "ticker symbol"],
+    freq: Annotated[
         str,
-        "reporting frequency of the company's financial historyhbacv mhvac jfdhvj annual / quarterly",
+        "reporting frequency of the company's financial history: annual / quarterly",
     ],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "current date you are trading at, yyyy-mm-dd"],
-)hbacv mhvac jfdhvj
+    curr_date: Annotated[str, "current date you are trading at, yyyy-mm-dd"],
+):
     data_path = os.path.join(
         DATA_DIR,
         "fundamental_data",
@@ -218,7 +218,7 @@ def get_simfin_cashflow(
     filtered_df = df[(df["Ticker"] == ticker) & (df["Publish Date"] <= curr_date_dt)]
 
     # Check if there are any available reports; if not, return a notification
-    if filtered_df.emptyhbacv mhvac jfdhvj
+    if filtered_df.empty:
         print("No cash flow statement available before the given current date.")
         return ""
 
@@ -229,20 +229,20 @@ def get_simfin_cashflow(
     latest_cash_flow = latest_cash_flow.drop("SimFinId")
 
     return (
-        f"## {freq} cash flow statement for {ticker} released on {str(latest_cash_flow['Publish Date'])[0hbacv mhvac jfdhvj10]}hbacv mhvac jfdhvj \n"
+        f"## {freq} cash flow statement for {ticker} released on {str(latest_cash_flow['Publish Date'])[0:10]}: \n"
         + str(latest_cash_flow)
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a breakdown of cash movements. Operating activities show cash generated from core business operations, including net income adjustments for non-cash items and working capital changes. Investing activities cover asset acquisitions/disposals and investments. Financing activities include debt transactions, equity issuances/repurchases, and dividend payments. The net change in cash represents the overall increase or decrease in the company's cash position during the reporting period."
     )
 
 
 def get_simfin_income_statements(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol"],
-    freqhbacv mhvac jfdhvj Annotated[
+    ticker: Annotated[str, "ticker symbol"],
+    freq: Annotated[
         str,
-        "reporting frequency of the company's financial historyhbacv mhvac jfdhvj annual / quarterly",
+        "reporting frequency of the company's financial history: annual / quarterly",
     ],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "current date you are trading at, yyyy-mm-dd"],
-)hbacv mhvac jfdhvj
+    curr_date: Annotated[str, "current date you are trading at, yyyy-mm-dd"],
+):
     data_path = os.path.join(
         DATA_DIR,
         "fundamental_data",
@@ -265,7 +265,7 @@ def get_simfin_income_statements(
     filtered_df = df[(df["Ticker"] == ticker) & (df["Publish Date"] <= curr_date_dt)]
 
     # Check if there are any available reports; if not, return a notification
-    if filtered_df.emptyhbacv mhvac jfdhvj
+    if filtered_df.empty:
         print("No income statement available before the given current date.")
         return ""
 
@@ -276,17 +276,17 @@ def get_simfin_income_statements(
     latest_income = latest_income.drop("SimFinId")
 
     return (
-        f"## {freq} income statement for {ticker} released on {str(latest_income['Publish Date'])[0hbacv mhvac jfdhvj10]}hbacv mhvac jfdhvj \n"
+        f"## {freq} income statement for {ticker} released on {str(latest_income['Publish Date'])[0:10]}: \n"
         + str(latest_income)
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a comprehensive breakdown of the company's financial performance. Starting with Revenue, it shows Cost of Revenue and resulting Gross Profit. Operating Expenses are detailed, including SG&A, R&D, and Depreciation. The statement then shows Operating Income, followed by non-operating items and Interest Expense, leading to Pretax Income. After accounting for Income Tax and any Extraordinary items, it concludes with Net Income, representing the company's bottom-line profit or loss for the period."
     )
 
 
 def get_google_news(
-    queryhbacv mhvac jfdhvj Annotated[str, "Query to search with"],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "Curr date in yyyy-mm-dd format"],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-) -> strhbacv mhvac jfdhvj
+    query: Annotated[str, "Query to search with"],
+    curr_date: Annotated[str, "Curr date in yyyy-mm-dd format"],
+    look_back_days: Annotated[int, "how many days to look back"],
+) -> str:
     query = query.replace(" ", "+")
 
     start_date = datetime.strptime(curr_date, "%Y-%m-%d")
@@ -297,29 +297,29 @@ def get_google_news(
 
     news_str = ""
 
-    for news in news_resultshbacv mhvac jfdhvj
+    for news in news_results:
         news_str += (
-            f"### {news['title']} (sourcehbacv mhvac jfdhvj {news['source']}) \n\n{news['snippet']}\n\n"
+            f"### {news['title']} (source: {news['source']}) \n\n{news['snippet']}\n\n"
         )
 
-    if len(news_results) == 0hbacv mhvac jfdhvj
+    if len(news_results) == 0:
         return ""
 
-    return f"## {query} Google News, from {before} to {curr_date}hbacv mhvac jfdhvj\n\n{news_str}"
+    return f"## {query} Google News, from {before} to {curr_date}:\n\n{news_str}"
 
 
 def get_reddit_global_news(
-    start_datehbacv mhvac jfdhvj Annotated[str, "Start date in yyyy-mm-dd format"],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-    max_limit_per_dayhbacv mhvac jfdhvj Annotated[int, "Maximum number of news per day"],
-) -> strhbacv mhvac jfdhvj
+    start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
+    look_back_days: Annotated[int, "how many days to look back"],
+    max_limit_per_day: Annotated[int, "Maximum number of news per day"],
+) -> str:
     """
     Retrieve the latest top reddit news
-    Argshbacv mhvac jfdhvj
-        start_datehbacv mhvac jfdhvj Start date in yyyy-mm-dd format
-        end_datehbacv mhvac jfdhvj End date in yyyy-mm-dd format
-    Returnshbacv mhvac jfdhvj
-        strhbacv mhvac jfdhvj A formatted dataframe containing the latest news articles posts on reddit and meta information in these columnshbacv mhvac jfdhvj "created_utc", "id", "title", "selftext", "score", "num_comments", "url"
+    Args:
+        start_date: Start date in yyyy-mm-dd format
+        end_date: End date in yyyy-mm-dd format
+    Returns:
+        str: A formatted dataframe containing the latest news articles posts on reddit and meta information in these columns: "created_utc", "id", "title", "selftext", "score", "num_comments", "url"
     """
 
     start_date = datetime.strptime(start_date, "%Y-%m-%d")
@@ -333,7 +333,7 @@ def get_reddit_global_news(
     total_iterations = (start_date - curr_date).days + 1
     pbar = tqdm(desc=f"Getting Global News on {start_date}", total=total_iterations)
 
-    while curr_date <= start_datehbacv mhvac jfdhvj
+    while curr_date <= start_date:
         curr_date_str = curr_date.strftime("%Y-%m-%d")
         fetch_result = fetch_top_from_category(
             "global_news",
@@ -347,33 +347,33 @@ def get_reddit_global_news(
 
     pbar.close()
 
-    if len(posts) == 0hbacv mhvac jfdhvj
+    if len(posts) == 0:
         return ""
 
     news_str = ""
-    for post in postshbacv mhvac jfdhvj
-        if post["content"] == ""hbacv mhvac jfdhvj
+    for post in posts:
+        if post["content"] == "":
             news_str += f"### {post['title']}\n\n"
-        elsehbacv mhvac jfdhvj
+        else:
             news_str += f"### {post['title']}\n\n{post['content']}\n\n"
 
-    return f"## Global News Reddit, from {before} to {curr_date}hbacv mhvac jfdhvj\n{news_str}"
+    return f"## Global News Reddit, from {before} to {curr_date}:\n{news_str}"
 
 
 def get_reddit_company_news(
-    tickerhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    start_datehbacv mhvac jfdhvj Annotated[str, "Start date in yyyy-mm-dd format"],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-    max_limit_per_dayhbacv mhvac jfdhvj Annotated[int, "Maximum number of news per day"],
-) -> strhbacv mhvac jfdhvj
+    ticker: Annotated[str, "ticker symbol of the company"],
+    start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
+    look_back_days: Annotated[int, "how many days to look back"],
+    max_limit_per_day: Annotated[int, "Maximum number of news per day"],
+) -> str:
     """
     Retrieve the latest top reddit news
-    Argshbacv mhvac jfdhvj
-        tickerhbacv mhvac jfdhvj ticker symbol of the company
-        start_datehbacv mhvac jfdhvj Start date in yyyy-mm-dd format
-        end_datehbacv mhvac jfdhvj End date in yyyy-mm-dd format
-    Returnshbacv mhvac jfdhvj
-        strhbacv mhvac jfdhvj A formatted dataframe containing the latest news articles posts on reddit and meta information in these columnshbacv mhvac jfdhvj "created_utc", "id", "title", "selftext", "score", "num_comments", "url"
+    Args:
+        ticker: ticker symbol of the company
+        start_date: Start date in yyyy-mm-dd format
+        end_date: End date in yyyy-mm-dd format
+    Returns:
+        str: A formatted dataframe containing the latest news articles posts on reddit and meta information in these columns: "created_utc", "id", "title", "selftext", "score", "num_comments", "url"
     """
 
     start_date = datetime.strptime(start_date, "%Y-%m-%d")
@@ -390,7 +390,7 @@ def get_reddit_company_news(
         total=total_iterations,
     )
 
-    while curr_date <= start_datehbacv mhvac jfdhvj
+    while curr_date <= start_date:
         curr_date_str = curr_date.strftime("%Y-%m-%d")
         fetch_result = fetch_top_from_category(
             "company_news",
@@ -406,112 +406,112 @@ def get_reddit_company_news(
 
     pbar.close()
 
-    if len(posts) == 0hbacv mhvac jfdhvj
+    if len(posts) == 0:
         return ""
 
     news_str = ""
-    for post in postshbacv mhvac jfdhvj
-        if post["content"] == ""hbacv mhvac jfdhvj
+    for post in posts:
+        if post["content"] == "":
             news_str += f"### {post['title']}\n\n"
-        elsehbacv mhvac jfdhvj
+        else:
             news_str += f"### {post['title']}\n\n{post['content']}\n\n"
 
-    return f"##{ticker} News Reddit, from {before} to {curr_date}hbacv mhvac jfdhvj\n\n{news_str}"
+    return f"##{ticker} News Reddit, from {before} to {curr_date}:\n\n{news_str}"
 
 
 def get_stock_stats_indicators_window(
-    symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    indicatorhbacv mhvac jfdhvj Annotated[str, "technical indicator to get the analysis and report of"],
-    curr_datehbacv mhvac jfdhvj Annotated[
+    symbol: Annotated[str, "ticker symbol of the company"],
+    indicator: Annotated[str, "technical indicator to get the analysis and report of"],
+    curr_date: Annotated[
         str, "The current trading date you are trading on, YYYY-mm-dd"
     ],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-    onlinehbacv mhvac jfdhvj Annotated[bool, "to fetch data online or offline"],
-) -> strhbacv mhvac jfdhvj
+    look_back_days: Annotated[int, "how many days to look back"],
+    online: Annotated[bool, "to fetch data online or offline"],
+) -> str:
 
     best_ind_params = {
         # Moving Averages
-        "close_50_sma"hbacv mhvac jfdhvj (
-            "50 SMAhbacv mhvac jfdhvj A medium-term trend indicator. "
-            "Usagehbacv mhvac jfdhvj Identify trend direction and serve as dynamic support/resistance. "
-            "Tipshbacv mhvac jfdhvj It lags price; combine with faster indicators for timely signals."
+        "close_50_sma": (
+            "50 SMA: A medium-term trend indicator. "
+            "Usage: Identify trend direction and serve as dynamic support/resistance. "
+            "Tips: It lags price; combine with faster indicators for timely signals."
         ),
-        "close_200_sma"hbacv mhvac jfdhvj (
-            "200 SMAhbacv mhvac jfdhvj A long-term trend benchmark. "
-            "Usagehbacv mhvac jfdhvj Confirm overall market trend and identify golden/death cross setups. "
-            "Tipshbacv mhvac jfdhvj It reacts slowly; best for strategic trend confirmation rather than frequent trading entries."
+        "close_200_sma": (
+            "200 SMA: A long-term trend benchmark. "
+            "Usage: Confirm overall market trend and identify golden/death cross setups. "
+            "Tips: It reacts slowly; best for strategic trend confirmation rather than frequent trading entries."
         ),
-        "close_10_ema"hbacv mhvac jfdhvj (
-            "10 EMAhbacv mhvac jfdhvj A responsive short-term average. "
-            "Usagehbacv mhvac jfdhvj Capture quick shifts in momentum and potential entry points. "
-            "Tipshbacv mhvac jfdhvj Prone to noise in choppy markets; use alongside longer averages for filtering false signals."
+        "close_10_ema": (
+            "10 EMA: A responsive short-term average. "
+            "Usage: Capture quick shifts in momentum and potential entry points. "
+            "Tips: Prone to noise in choppy markets; use alongside longer averages for filtering false signals."
         ),
         # MACD Related
-        "macd"hbacv mhvac jfdhvj (
-            "MACDhbacv mhvac jfdhvj Computes momentum via differences of EMAs. "
-            "Usagehbacv mhvac jfdhvj Look for crossovers and divergence as signals of trend changes. "
-            "Tipshbacv mhvac jfdhvj Confirm with other indicators in low-volatility or sideways markets."
+        "macd": (
+            "MACD: Computes momentum via differences of EMAs. "
+            "Usage: Look for crossovers and divergence as signals of trend changes. "
+            "Tips: Confirm with other indicators in low-volatility or sideways markets."
         ),
-        "macds"hbacv mhvac jfdhvj (
-            "MACD Signalhbacv mhvac jfdhvj An EMA smoothing of the MACD line. "
-            "Usagehbacv mhvac jfdhvj Use crossovers with the MACD line to trigger trades. "
-            "Tipshbacv mhvac jfdhvj Should be part of a broader strategy to avoid false positives."
+        "macds": (
+            "MACD Signal: An EMA smoothing of the MACD line. "
+            "Usage: Use crossovers with the MACD line to trigger trades. "
+            "Tips: Should be part of a broader strategy to avoid false positives."
         ),
-        "macdh"hbacv mhvac jfdhvj (
-            "MACD Histogramhbacv mhvac jfdhvj Shows the gap between the MACD line and its signal. "
-            "Usagehbacv mhvac jfdhvj Visualize momentum strength and spot divergence early. "
-            "Tipshbacv mhvac jfdhvj Can be volatile; complement with additional filters in fast-moving markets."
+        "macdh": (
+            "MACD Histogram: Shows the gap between the MACD line and its signal. "
+            "Usage: Visualize momentum strength and spot divergence early. "
+            "Tips: Can be volatile; complement with additional filters in fast-moving markets."
         ),
         # Momentum Indicators
-        "rsi"hbacv mhvac jfdhvj (
-            "RSIhbacv mhvac jfdhvj Measures momentum to flag overbought/oversold conditions. "
-            "Usagehbacv mhvac jfdhvj Apply 70/30 thresholds and watch for divergence to signal reversals. "
-            "Tipshbacv mhvac jfdhvj In strong trends, RSI may remain extreme; always cross-check with trend analysis."
+        "rsi": (
+            "RSI: Measures momentum to flag overbought/oversold conditions. "
+            "Usage: Apply 70/30 thresholds and watch for divergence to signal reversals. "
+            "Tips: In strong trends, RSI may remain extreme; always cross-check with trend analysis."
         ),
         # Volatility Indicators
-        "boll"hbacv mhvac jfdhvj (
-            "Bollinger Middlehbacv mhvac jfdhvj A 20 SMA serving as the basis for Bollinger Bands. "
-            "Usagehbacv mhvac jfdhvj Acts as a dynamic benchmark for price movement. "
-            "Tipshbacv mhvac jfdhvj Combine with the upper and lower bands to effectively spot breakouts or reversals."
+        "boll": (
+            "Bollinger Middle: A 20 SMA serving as the basis for Bollinger Bands. "
+            "Usage: Acts as a dynamic benchmark for price movement. "
+            "Tips: Combine with the upper and lower bands to effectively spot breakouts or reversals."
         ),
-        "boll_ub"hbacv mhvac jfdhvj (
-            "Bollinger Upper Bandhbacv mhvac jfdhvj Typically 2 standard deviations above the middle line. "
-            "Usagehbacv mhvac jfdhvj Signals potential overbought conditions and breakout zones. "
-            "Tipshbacv mhvac jfdhvj Confirm signals with other tools; prices may ride the band in strong trends."
+        "boll_ub": (
+            "Bollinger Upper Band: Typically 2 standard deviations above the middle line. "
+            "Usage: Signals potential overbought conditions and breakout zones. "
+            "Tips: Confirm signals with other tools; prices may ride the band in strong trends."
         ),
-        "boll_lb"hbacv mhvac jfdhvj (
-            "Bollinger Lower Bandhbacv mhvac jfdhvj Typically 2 standard deviations below the middle line. "
-            "Usagehbacv mhvac jfdhvj Indicates potential oversold conditions. "
-            "Tipshbacv mhvac jfdhvj Use additional analysis to avoid false reversal signals."
+        "boll_lb": (
+            "Bollinger Lower Band: Typically 2 standard deviations below the middle line. "
+            "Usage: Indicates potential oversold conditions. "
+            "Tips: Use additional analysis to avoid false reversal signals."
         ),
-        "atr"hbacv mhvac jfdhvj (
-            "ATRhbacv mhvac jfdhvj Averages true range to measure volatility. "
-            "Usagehbacv mhvac jfdhvj Set stop-loss levels and adjust position sizes based on current market volatility. "
-            "Tipshbacv mhvac jfdhvj It's a reactive measure, so use it as part of a broader risk management strategy."
+        "atr": (
+            "ATR: Averages true range to measure volatility. "
+            "Usage: Set stop-loss levels and adjust position sizes based on current market volatility. "
+            "Tips: It's a reactive measure, so use it as part of a broader risk management strategy."
         ),
         # Volume-Based Indicators
-        "vwma"hbacv mhvac jfdhvj (
-            "VWMAhbacv mhvac jfdhvj A moving average weighted by volume. "
-            "Usagehbacv mhvac jfdhvj Confirm trends by integrating price action with volume data. "
-            "Tipshbacv mhvac jfdhvj Watch for skewed results from volume spikes; use in combination with other volume analyses."
+        "vwma": (
+            "VWMA: A moving average weighted by volume. "
+            "Usage: Confirm trends by integrating price action with volume data. "
+            "Tips: Watch for skewed results from volume spikes; use in combination with other volume analyses."
         ),
-        "mfi"hbacv mhvac jfdhvj (
-            "MFIhbacv mhvac jfdhvj The Money Flow Index is a momentum indicator that uses both price and volume to measure buying and selling pressure. "
-            "Usagehbacv mhvac jfdhvj Identify overbought (>80) or oversold (<20) conditions and confirm the strength of trends or reversals. "
-            "Tipshbacv mhvac jfdhvj Use alongside RSI or MACD to confirm signals; divergence between price and MFI can indicate potential reversals."
+        "mfi": (
+            "MFI: The Money Flow Index is a momentum indicator that uses both price and volume to measure buying and selling pressure. "
+            "Usage: Identify overbought (>80) or oversold (<20) conditions and confirm the strength of trends or reversals. "
+            "Tips: Use alongside RSI or MACD to confirm signals; divergence between price and MFI can indicate potential reversals."
         ),
     }
 
-    if indicator not in best_ind_paramshbacv mhvac jfdhvj
+    if indicator not in best_ind_params:
         raise ValueError(
-            f"Indicator {indicator} is not supported. Please choose fromhbacv mhvac jfdhvj {list(best_ind_params.keys())}"
+            f"Indicator {indicator} is not supported. Please choose from: {list(best_ind_params.keys())}"
         )
 
     end_date = curr_date
     curr_date = datetime.strptime(curr_date, "%Y-%m-%d")
     before = curr_date - relativedelta(days=look_back_days)
 
-    if not onlinehbacv mhvac jfdhvj
+    if not online:
         # read from YFin data
         data = pd.read_csv(
             os.path.join(
@@ -520,33 +520,33 @@ def get_stock_stats_indicators_window(
             )
         )
         data["Date"] = pd.to_datetime(data["Date"], utc=True)
-        dates_in_df = data["Date"].astype(str).str[hbacv mhvac jfdhvj10]
+        dates_in_df = data["Date"].astype(str).str[:10]
 
         ind_string = ""
-        while curr_date >= beforehbacv mhvac jfdhvj
+        while curr_date >= before:
             # only do the trading dates
-            if curr_date.strftime("%Y-%m-%d") in dates_in_df.valueshbacv mhvac jfdhvj
+            if curr_date.strftime("%Y-%m-%d") in dates_in_df.values:
                 indicator_value = get_stockstats_indicator(
                     symbol, indicator, curr_date.strftime("%Y-%m-%d"), online
                 )
 
-                ind_string += f"{curr_date.strftime('%Y-%m-%d')}hbacv mhvac jfdhvj {indicator_value}\n"
+                ind_string += f"{curr_date.strftime('%Y-%m-%d')}: {indicator_value}\n"
 
             curr_date = curr_date - relativedelta(days=1)
-    elsehbacv mhvac jfdhvj
+    else:
         # online gathering
         ind_string = ""
-        while curr_date >= beforehbacv mhvac jfdhvj
+        while curr_date >= before:
             indicator_value = get_stockstats_indicator(
                 symbol, indicator, curr_date.strftime("%Y-%m-%d"), online
             )
 
-            ind_string += f"{curr_date.strftime('%Y-%m-%d')}hbacv mhvac jfdhvj {indicator_value}\n"
+            ind_string += f"{curr_date.strftime('%Y-%m-%d')}: {indicator_value}\n"
 
             curr_date = curr_date - relativedelta(days=1)
 
     result_str = (
-        f"## {indicator} values from {before.strftime('%Y-%m-%d')} to {end_date}hbacv mhvac jfdhvj\n\n"
+        f"## {indicator} values from {before.strftime('%Y-%m-%d')} to {end_date}:\n\n"
         + ind_string
         + "\n\n"
         + best_ind_params.get(indicator, "No description available.")
@@ -556,18 +556,18 @@ def get_stock_stats_indicators_window(
 
 
 def get_stockstats_indicator(
-    symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    indicatorhbacv mhvac jfdhvj Annotated[str, "technical indicator to get the analysis and report of"],
-    curr_datehbacv mhvac jfdhvj Annotated[
+    symbol: Annotated[str, "ticker symbol of the company"],
+    indicator: Annotated[str, "technical indicator to get the analysis and report of"],
+    curr_date: Annotated[
         str, "The current trading date you are trading on, YYYY-mm-dd"
     ],
-    onlinehbacv mhvac jfdhvj Annotated[bool, "to fetch data online or offline"],
-) -> strhbacv mhvac jfdhvj
+    online: Annotated[bool, "to fetch data online or offline"],
+) -> str:
 
     curr_date = datetime.strptime(curr_date, "%Y-%m-%d")
     curr_date = curr_date.strftime("%Y-%m-%d")
 
-    tryhbacv mhvac jfdhvj
+    try:
         indicator_value = StockstatsUtils.get_stock_stats(
             symbol,
             indicator,
@@ -575,9 +575,9 @@ def get_stockstats_indicator(
             os.path.join(DATA_DIR, "market_data", "price_data"),
             online=online,
         )
-    except Exception as ehbacv mhvac jfdhvj
+    except Exception as e:
         print(
-            f"Error getting stockstats indicator data for indicator {indicator} on {curr_date}hbacv mhvac jfdhvj {e}"
+            f"Error getting stockstats indicator data for indicator {indicator} on {curr_date}: {e}"
         )
         return ""
 
@@ -585,10 +585,10 @@ def get_stockstats_indicator(
 
 
 def get_YFin_data_window(
-    symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    curr_datehbacv mhvac jfdhvj Annotated[str, "Start date in yyyy-mm-dd format"],
-    look_back_dayshbacv mhvac jfdhvj Annotated[int, "how many days to look back"],
-) -> strhbacv mhvac jfdhvj
+    symbol: Annotated[str, "ticker symbol of the company"],
+    curr_date: Annotated[str, "Start date in yyyy-mm-dd format"],
+    look_back_days: Annotated[int, "how many days to look back"],
+) -> str:
     # calculate past days
     date_obj = datetime.strptime(curr_date, "%Y-%m-%d")
     before = date_obj - relativedelta(days=look_back_days)
@@ -603,7 +603,7 @@ def get_YFin_data_window(
     )
 
     # Extract just the date part for comparison
-    data["DateOnly"] = data["Date"].str[hbacv mhvac jfdhvj10]
+    data["DateOnly"] = data["Date"].str[:10]
 
     # Filter data between the start and end dates (inclusive)
     filtered_data = data[
@@ -616,20 +616,20 @@ def get_YFin_data_window(
     # Set pandas display options to show the full DataFrame
     with pd.option_context(
         "display.max_rows", None, "display.max_columns", None, "display.width", None
-    )hbacv mhvac jfdhvj
+    ):
         df_string = filtered_data.to_string()
 
     return (
-        f"## Raw Market Data for {symbol} from {start_date} to {curr_date}hbacv mhvac jfdhvj\n\n"
+        f"## Raw Market Data for {symbol} from {start_date} to {curr_date}:\n\n"
         + df_string
     )
 
 
 def get_YFin_data_online(
-    symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    start_datehbacv mhvac jfdhvj Annotated[str, "Start date in yyyy-mm-dd format"],
-    end_datehbacv mhvac jfdhvj Annotated[str, "End date in yyyy-mm-dd format"],
-)hbacv mhvac jfdhvj
+    symbol: Annotated[str, "ticker symbol of the company"],
+    start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
+    end_date: Annotated[str, "End date in yyyy-mm-dd format"],
+):
 
     datetime.strptime(start_date, "%Y-%m-%d")
     datetime.strptime(end_date, "%Y-%m-%d")
@@ -641,19 +641,19 @@ def get_YFin_data_online(
     data = ticker.history(start=start_date, end=end_date)
 
     # Check if data is empty
-    if data.emptyhbacv mhvac jfdhvj
+    if data.empty:
         return (
             f"No data found for symbol '{symbol}' between {start_date} and {end_date}"
         )
 
     # Remove timezone info from index for cleaner output
-    if data.index.tz is not Nonehbacv mhvac jfdhvj
+    if data.index.tz is not None:
         data.index = data.index.tz_localize(None)
 
     # Round numerical values to 2 decimal places for cleaner display
     numeric_columns = ["Open", "High", "Low", "Close", "Adj Close"]
-    for col in numeric_columnshbacv mhvac jfdhvj
-        if col in data.columnshbacv mhvac jfdhvj
+    for col in numeric_columns:
+        if col in data.columns:
             data[col] = data[col].round(2)
 
     # Convert DataFrame to CSV string
@@ -661,17 +661,17 @@ def get_YFin_data_online(
 
     # Add header information
     header = f"# Stock data for {symbol.upper()} from {start_date} to {end_date}\n"
-    header += f"# Total recordshbacv mhvac jfdhvj {len(data)}\n"
-    header += f"# Data retrieved onhbacv mhvac jfdhvj {datetime.now().strftime('%Y-%m-%d %Hhbacv mhvac jfdhvj%Mhbacv mhvac jfdhvj%S')}\n\n"
+    header += f"# Total records: {len(data)}\n"
+    header += f"# Data retrieved on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
     return header + csv_string
 
 
 def get_YFin_data(
-    symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol of the company"],
-    start_datehbacv mhvac jfdhvj Annotated[str, "Start date in yyyy-mm-dd format"],
-    end_datehbacv mhvac jfdhvj Annotated[str, "End date in yyyy-mm-dd format"],
-) -> strhbacv mhvac jfdhvj
+    symbol: Annotated[str, "ticker symbol of the company"],
+    start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
+    end_date: Annotated[str, "End date in yyyy-mm-dd format"],
+) -> str:
     # read in data
     data = pd.read_csv(
         os.path.join(
@@ -680,13 +680,13 @@ def get_YFin_data(
         )
     )
 
-    if end_date > "2025-03-25"hbacv mhvac jfdhvj
+    if end_date > "2025-03-25":
         raise Exception(
-            f"Get_YFin_Datahbacv mhvac jfdhvj {end_date} is outside of the data range of 2015-01-01 to 2025-03-25"
+            f"Get_YFin_Data: {end_date} is outside of the data range of 2015-01-01 to 2025-03-25"
         )
 
     # Extract just the date part for comparison
-    data["DateOnly"] = data["Date"].str[hbacv mhvac jfdhvj10]
+    data["DateOnly"] = data["Date"].str[:10]
 
     # Filter data between the start and end dates (inclusive)
     filtered_data = data[
@@ -702,7 +702,7 @@ def get_YFin_data(
     return filtered_data
 
 
-def get_stock_news_openai(ticker, curr_date)hbacv mhvac jfdhvj
+def get_stock_news_openai(ticker, curr_date):
     config = get_config()
     client = OpenAI(base_url=config["backend_url"])
 
@@ -710,22 +710,22 @@ def get_stock_news_openai(ticker, curr_date)hbacv mhvac jfdhvj
         model=config["quick_think_llm"],
         input=[
             {
-                "role"hbacv mhvac jfdhvj "system",
-                "content"hbacv mhvac jfdhvj [
+                "role": "system",
+                "content": [
                     {
-                        "type"hbacv mhvac jfdhvj "input_text",
-                        "text"hbacv mhvac jfdhvj f"Can you search Social Media for {ticker} from 7 days before {curr_date} to {curr_date}? Make sure you only get the data posted during that period.",
+                        "type": "input_text",
+                        "text": f"Can you search Social Media for {ticker} from 7 days before {curr_date} to {curr_date}? Make sure you only get the data posted during that period.",
                     }
                 ],
             }
         ],
-        text={"format"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "text"}},
+        text={"format": {"type": "text"}},
         reasoning={},
         tools=[
             {
-                "type"hbacv mhvac jfdhvj "web_search_preview",
-                "user_location"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "approximate"},
-                "search_context_size"hbacv mhvac jfdhvj "low",
+                "type": "web_search_preview",
+                "user_location": {"type": "approximate"},
+                "search_context_size": "low",
             }
         ],
         temperature=1,
@@ -737,7 +737,7 @@ def get_stock_news_openai(ticker, curr_date)hbacv mhvac jfdhvj
     return response.output[1].content[0].text
 
 
-def get_global_news_openai(curr_date)hbacv mhvac jfdhvj
+def get_global_news_openai(curr_date):
     config = get_config()
     client = OpenAI(base_url=config["backend_url"])
 
@@ -745,22 +745,22 @@ def get_global_news_openai(curr_date)hbacv mhvac jfdhvj
         model=config["quick_think_llm"],
         input=[
             {
-                "role"hbacv mhvac jfdhvj "system",
-                "content"hbacv mhvac jfdhvj [
+                "role": "system",
+                "content": [
                     {
-                        "type"hbacv mhvac jfdhvj "input_text",
-                        "text"hbacv mhvac jfdhvj f"Can you search global or macroeconomics news from 7 days before {curr_date} to {curr_date} that would be informative for trading purposes? Make sure you only get the data posted during that period.",
+                        "type": "input_text",
+                        "text": f"Can you search global or macroeconomics news from 7 days before {curr_date} to {curr_date} that would be informative for trading purposes? Make sure you only get the data posted during that period.",
                     }
                 ],
             }
         ],
-        text={"format"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "text"}},
+        text={"format": {"type": "text"}},
         reasoning={},
         tools=[
             {
-                "type"hbacv mhvac jfdhvj "web_search_preview",
-                "user_location"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "approximate"},
-                "search_context_size"hbacv mhvac jfdhvj "low",
+                "type": "web_search_preview",
+                "user_location": {"type": "approximate"},
+                "search_context_size": "low",
             }
         ],
         temperature=1,
@@ -772,7 +772,7 @@ def get_global_news_openai(curr_date)hbacv mhvac jfdhvj
     return response.output[1].content[0].text
 
 
-def get_fundamentals_openai(ticker, curr_date)hbacv mhvac jfdhvj
+def get_fundamentals_openai(ticker, curr_date):
     config = get_config()
     client = OpenAI(base_url=config["backend_url"])
 
@@ -780,22 +780,22 @@ def get_fundamentals_openai(ticker, curr_date)hbacv mhvac jfdhvj
         model=config["quick_think_llm"],
         input=[
             {
-                "role"hbacv mhvac jfdhvj "system",
-                "content"hbacv mhvac jfdhvj [
+                "role": "system",
+                "content": [
                     {
-                        "type"hbacv mhvac jfdhvj "input_text",
-                        "text"hbacv mhvac jfdhvj f"Can you search Fundamental for discussions on {ticker} during of the month before {curr_date} to the month of {curr_date}. Make sure you only get the data posted during that period. List as a table, with PE/PS/Cash flow/ etc",
+                        "type": "input_text",
+                        "text": f"Can you search Fundamental for discussions on {ticker} during of the month before {curr_date} to the month of {curr_date}. Make sure you only get the data posted during that period. List as a table, with PE/PS/Cash flow/ etc",
                     }
                 ],
             }
         ],
-        text={"format"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "text"}},
+        text={"format": {"type": "text"}},
         reasoning={},
         tools=[
             {
-                "type"hbacv mhvac jfdhvj "web_search_preview",
-                "user_location"hbacv mhvac jfdhvj {"type"hbacv mhvac jfdhvj "approximate"},
-                "search_context_size"hbacv mhvac jfdhvj "low",
+                "type": "web_search_preview",
+                "user_location": {"type": "approximate"},
+                "search_context_size": "low",
             }
         ],
         temperature=1,

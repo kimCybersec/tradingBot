@@ -3,15 +3,15 @@ import time
 import json
 
 
-def create_social_media_analyst(llm, toolkit)hbacv mhvac jfdhvj
-    def social_media_analyst_node(state)hbacv mhvac jfdhvj
+def create_social_media_analyst(llm, toolkit):
+    def social_media_analyst_node(state):
         current_date = state["trade_date"]
         ticker = state["company_of_interest"]
         company_name = state["company_of_interest"]
 
-        if toolkit.config["online_tools"]hbacv mhvac jfdhvj
+        if toolkit.config["online_tools"]:
             tools = [toolkit.get_stock_news_openai]
-        elsehbacv mhvac jfdhvj
+        else:
             tools = [
                 toolkit.get_reddit_stock_info,
             ]
@@ -29,9 +29,9 @@ def create_social_media_analyst(llm, toolkit)hbacv mhvac jfdhvj
                     " Use the provided tools to progress towards answering the question."
                     " If you are unable to fully answer, that's OK; another assistant with different tools"
                     " will help where you left off. Execute what you can to make progress."
-                    " If you or any other assistant has the FINAL TRANSACTION PROPOSALhbacv mhvac jfdhvj **BUY/HOLD/SELL** or deliverable,"
-                    " prefix your response with FINAL TRANSACTION PROPOSALhbacv mhvac jfdhvj **BUY/HOLD/SELL** so the team knows to stop."
-                    " You have access to the following toolshbacv mhvac jfdhvj {tool_names}.\n{system_message}"
+                    " If you or any other assistant has the FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** or deliverable,"
+                    " prefix your response with FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** so the team knows to stop."
+                    " You have access to the following tools: {tool_names}.\n{system_message}"
                     "For your reference, the current date is {current_date}. The current company we want to analyze is {ticker}",
                 ),
                 MessagesPlaceholder(variable_name="messages"),
@@ -49,12 +49,12 @@ def create_social_media_analyst(llm, toolkit)hbacv mhvac jfdhvj
 
         report = ""
 
-        if len(result.tool_calls) == 0hbacv mhvac jfdhvj
+        if len(result.tool_calls) == 0:
             report = result.content
 
         return {
-            "messages"hbacv mhvac jfdhvj [result],
-            "sentiment_report"hbacv mhvac jfdhvj report,
+            "messages": [result],
+            "sentiment_report": report,
         }
 
     return social_media_analyst_node

@@ -13,7 +13,7 @@ from tenacity import (
 )
 
 
-def is_rate_limited(response)hbacv mhvac jfdhvj
+def is_rate_limited(response):
     """Check if the response indicates rate limiting (status code 429)"""
     return response.status_code == 429
 
@@ -23,7 +23,7 @@ def is_rate_limited(response)hbacv mhvac jfdhvj
     wait=wait_exponential(multiplier=1, min=4, max=60),
     stop=stop_after_attempt(5),
 )
-def make_request(url, headers)hbacv mhvac jfdhvj
+def make_request(url, headers):
     """Make a request with retry logic for rate limiting"""
     # Random delay before each request to avoid detection
     time.sleep(random.uniform(2, 6))
@@ -31,22 +31,22 @@ def make_request(url, headers)hbacv mhvac jfdhvj
     return response
 
 
-def getNewsData(query, start_date, end_date)hbacv mhvac jfdhvj
+def getNewsData(query, start_date, end_date):
     """
     Scrape Google News search results for a given query and date range.
-    queryhbacv mhvac jfdhvj str - search query
-    start_datehbacv mhvac jfdhvj str - start date in the format yyyy-mm-dd or mm/dd/yyyy
-    end_datehbacv mhvac jfdhvj str - end date in the format yyyy-mm-dd or mm/dd/yyyy
+    query: str - search query
+    start_date: str - start date in the format yyyy-mm-dd or mm/dd/yyyy
+    end_date: str - end date in the format yyyy-mm-dd or mm/dd/yyyy
     """
-    if "-" in start_datehbacv mhvac jfdhvj
+    if "-" in start_date:
         start_date = datetime.strptime(start_date, "%Y-%m-%d")
         start_date = start_date.strftime("%m/%d/%Y")
-    if "-" in end_datehbacv mhvac jfdhvj
+    if "-" in end_date:
         end_date = datetime.strptime(end_date, "%Y-%m-%d")
         end_date = end_date.strftime("%m/%d/%Y")
 
     headers = {
-        "User-Agent"hbacv mhvac jfdhvj (
+        "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/101.0.4951.54 Safari/537.36"
@@ -55,24 +55,24 @@ def getNewsData(query, start_date, end_date)hbacv mhvac jfdhvj
 
     news_results = []
     page = 0
-    while Truehbacv mhvac jfdhvj
+    while True:
         offset = page * 10
         url = (
-            f"httpshbacv mhvac jfdhvj//www.google.com/search?q={query}"
-            f"&tbs=cdrhbacv mhvac jfdhvj1,cd_minhbacv mhvac jfdhvj{start_date},cd_maxhbacv mhvac jfdhvj{end_date}"
+            f"https://www.google.com/search?q={query}"
+            f"&tbs=cdr:1,cd_min:{start_date},cd_max:{end_date}"
             f"&tbm=nws&start={offset}"
         )
 
-        tryhbacv mhvac jfdhvj
+        try:
             response = make_request(url, headers)
             soup = BeautifulSoup(response.content, "html.parser")
             results_on_page = soup.select("div.SoaBEf")
 
-            if not results_on_pagehbacv mhvac jfdhvj
+            if not results_on_page:
                 break  # No more results found
 
-            for el in results_on_pagehbacv mhvac jfdhvj
-                tryhbacv mhvac jfdhvj
+            for el in results_on_page:
+                try:
                     link = el.find("a")["href"]
                     title = el.select_one("div.MBeuO").get_text()
                     snippet = el.select_one(".GI74Re").get_text()
@@ -80,15 +80,15 @@ def getNewsData(query, start_date, end_date)hbacv mhvac jfdhvj
                     source = el.select_one(".NUnG9d span").get_text()
                     news_results.append(
                         {
-                            "link"hbacv mhvac jfdhvj link,
-                            "title"hbacv mhvac jfdhvj title,
-                            "snippet"hbacv mhvac jfdhvj snippet,
-                            "date"hbacv mhvac jfdhvj date,
-                            "source"hbacv mhvac jfdhvj source,
+                            "link": link,
+                            "title": title,
+                            "snippet": snippet,
+                            "date": date,
+                            "source": source,
                         }
                     )
-                except Exception as ehbacv mhvac jfdhvj
-                    print(f"Error processing resulthbacv mhvac jfdhvj {e}")
+                except Exception as e:
+                    print(f"Error processing result: {e}")
                     # If one of the fields is not found, skip this result
                     continue
 
@@ -96,13 +96,13 @@ def getNewsData(query, start_date, end_date)hbacv mhvac jfdhvj
 
             # Check for the "Next" link (pagination)
             next_link = soup.find("a", id="pnnext")
-            if not next_linkhbacv mhvac jfdhvj
+            if not next_link:
                 break
 
             page += 1
 
-        except Exception as ehbacv mhvac jfdhvj
-            print(f"Failed after multiple retrieshbacv mhvac jfdhvj {e}")
+        except Exception as e:
+            print(f"Failed after multiple retries: {e}")
             break
 
     return news_results

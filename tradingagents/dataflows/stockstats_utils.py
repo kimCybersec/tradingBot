@@ -6,30 +6,30 @@ import os
 from .config import get_config
 
 
-class StockstatsUtilshbacv mhvac jfdhvj
+class StockstatsUtils:
     @staticmethod
     def get_stock_stats(
-        symbolhbacv mhvac jfdhvj Annotated[str, "ticker symbol for the company"],
-        indicatorhbacv mhvac jfdhvj Annotated[
+        symbol: Annotated[str, "ticker symbol for the company"],
+        indicator: Annotated[
             str, "quantitative indicators based off of the stock data for the company"
         ],
-        curr_datehbacv mhvac jfdhvj Annotated[
+        curr_date: Annotated[
             str, "curr date for retrieving stock price data, YYYY-mm-dd"
         ],
-        data_dirhbacv mhvac jfdhvj Annotated[
+        data_dir: Annotated[
             str,
             "directory where the stock data is stored.",
         ],
-        onlinehbacv mhvac jfdhvj Annotated[
+        online: Annotated[
             bool,
             "whether to use online tools to fetch data or offline tools. If True, will use online tools.",
         ] = False,
-    )hbacv mhvac jfdhvj
+    ):
         df = None
         data = None
 
-        if not onlinehbacv mhvac jfdhvj
-            tryhbacv mhvac jfdhvj
+        if not online:
+            try:
                 data = pd.read_csv(
                     os.path.join(
                         data_dir,
@@ -37,9 +37,9 @@ class StockstatsUtilshbacv mhvac jfdhvj
                     )
                 )
                 df = wrap(data)
-            except FileNotFoundErrorhbacv mhvac jfdhvj
-                raise Exception("Stockstats failhbacv mhvac jfdhvj Yahoo Finance data not fetched yet!")
-        elsehbacv mhvac jfdhvj
+            except FileNotFoundError:
+                raise Exception("Stockstats fail: Yahoo Finance data not fetched yet!")
+        else:
             # Get today's date as YYYY-mm-dd to add to cache
             today_date = pd.Timestamp.today()
             curr_date = pd.to_datetime(curr_date)
@@ -58,10 +58,10 @@ class StockstatsUtilshbacv mhvac jfdhvj
                 f"{symbol}-YFin-data-{start_date}-{end_date}.csv",
             )
 
-            if os.path.exists(data_file)hbacv mhvac jfdhvj
+            if os.path.exists(data_file):
                 data = pd.read_csv(data_file)
                 data["Date"] = pd.to_datetime(data["Date"])
-            elsehbacv mhvac jfdhvj
+            else:
                 data = yf.download(
                     symbol,
                     start=start_date,
@@ -80,8 +80,8 @@ class StockstatsUtilshbacv mhvac jfdhvj
         df[indicator]  # trigger stockstats to calculate the indicator
         matching_rows = df[df["Date"].str.startswith(curr_date)]
 
-        if not matching_rows.emptyhbacv mhvac jfdhvj
+        if not matching_rows.empty:
             indicator_value = matching_rows[indicator].values[0]
             return indicator_value
-        elsehbacv mhvac jfdhvj
-            return "N/Ahbacv mhvac jfdhvj Not a trading day (weekend or holiday)"
+        else:
+            return "N/A: Not a trading day (weekend or holiday)"
