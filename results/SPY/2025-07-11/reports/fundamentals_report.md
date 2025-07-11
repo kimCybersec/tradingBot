@@ -1,0 +1,1 @@
+I am unable to retrieve the fundamental data for SPY or AAPL using the available tool. The API consistently returns a 404 error, indicating that the requested information is not found.

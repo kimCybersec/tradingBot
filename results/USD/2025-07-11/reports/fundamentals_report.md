@@ -1,0 +1,1 @@
+I encountered a NotFoundError when trying to retrieve fundamental information for the ticker "USD" on 2025-07-11. It's possible that "USD" is not a valid stock ticker, or that no fundamental data is available for it through the API. I will double check if "USD" is the correct ticker. If it is, it may indicate a data issue with the API for this particular ticker.

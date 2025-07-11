@@ -1,0 +1,1 @@
+It seems I'm having trouble retrieving news data using the available tools. Both the OpenAI macroeconomics news API and the Google News API are returning errors or empty results. I am unable to provide a comprehensive report of the current state of the world that is relevant for trading and macroeconomics without news data.

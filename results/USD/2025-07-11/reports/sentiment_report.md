@@ -1,0 +1,1 @@
+I am unable to retrieve news for ticker USD or AAPL using the available tools. I will try a more general query to see if I can get any relevant information.

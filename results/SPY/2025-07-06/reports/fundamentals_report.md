@@ -1,1 +1,0 @@
-I am unable to retrieve any fundamental data for SPY for the past week using the available tool. It seems there's a persistent "NotFoundError" indicating that the requested data is not available. I cannot proceed with generating the report without this information.

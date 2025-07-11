@@ -1,0 +1,1 @@
+I am unable to retrieve the fundamental data for GOLD or AAPL using the available tools. The API is returning a 404 error, indicating that the requested data was not found.
