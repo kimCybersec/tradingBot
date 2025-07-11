@@ -34,7 +34,6 @@ app = typer.Typer(
 )
 
 
-# Create a deque to store recent messages with a maximum length
 class MessageBuffer:
     def __init__(self, max_length=100):
         self.messages = deque(maxlen=max_length)
